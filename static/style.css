@@ -1,28 +1,159 @@
 body {
-  font-family: Arial, sans-serif;
-  background: #f2f2f2;
+  font-family: "Poppins", Arial, sans-serif;
+  background: linear-gradient(135deg, #d0f0fd, #f7f9d0);
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
+  margin: 0;
 }
 
+/* 🧠 Chat container */
 .chat-container {
-  background: #fff;
-  width: 400px;
-  border-radius: 12px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  background: #ffffff;
+  width: 450px;
+  border-radius: 20px;
+  box-shadow: 0 6px 25px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
   padding: 20px;
+  border: 3px solid #00bcd4;
+  animation: popIn 0.5s ease;
 }
 
+.chat-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.chat-header h2 {
+  font-size: 1.4em;
+  color: #222;
+  margin: 0;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.emoji {
+  font-size: 1.4em;
+}
+
+/* 💬 Chat area */
 #chat-box {
-  height: 300px;
+  flex: 1;
   overflow-y: auto;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 10px;
+  border: 2px solid #d9f1ff;
+  border-radius: 12px;
+  padding: 12px;
   margin-bottom: 10px;
+  background: #f5fbff;
+  height: 360px;
+  scrollbar-width: thin;
+  scrollbar-color: #90caf9 transparent;
 }
 
-.user-msg { text-align: right; color: blue; }
-.bot-msg { text-align: left; color: green; }
+.user-msg, .bot-msg {
+  margin: 8px 0;
+  display: flex;
+  align-items: flex-start;
+}
+
+.user-msg {
+  justify-content: flex-end;
+}
+
+.bot-msg {
+  justify-content: flex-start;
+}
+
+.user-bubble, .bot-bubble {
+  padding: 10px 14px;
+  border-radius: 18px;
+  max-width: 75%;
+  word-wrap: break-word;
+  font-size: 0.95em;
+  line-height: 1.4em;
+}
+
+.user-bubble {
+  background: linear-gradient(135deg, #007bff, #00bcd4);
+  color: white;
+  border-bottom-right-radius: 5px;
+  animation: slideInRight 0.3s ease;
+}
+
+.bot-bubble {
+  background: #e3fcef;
+  color: #333;
+  border-bottom-left-radius: 5px;
+  animation: slideInLeft 0.3s ease;
+}
+
+/* ✨ Typing effect */
+.typing-text {
+  font-style: italic;
+  color: #555;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0% { opacity: 0.3; }
+  50% { opacity: 1; }
+  100% { opacity: 0.3; }
+}
+
+/* 🎯 Input area */
+.input-area {
+  display: flex;
+  gap: 8px;
+}
+
+input {
+  flex: 1;
+  padding: 10px;
+  border: 2px solid #00bcd4;
+  border-radius: 12px;
+  font-size: 1em;
+  outline: none;
+  transition: 0.3s;
+}
+
+input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 6px rgba(0, 123, 255, 0.3);
+}
+
+button {
+  background: linear-gradient(135deg, #28a745, #00c853);
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: 0.3s;
+}
+
+button:hover {
+  transform: scale(1.05);
+  background: linear-gradient(135deg, #1e7e34, #009624);
+}
+
+/* ✨ Animations */
+@keyframes slideInLeft {
+  from { transform: translateX(-20px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(20px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes popIn {
+  from { transform: scale(0.95); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
