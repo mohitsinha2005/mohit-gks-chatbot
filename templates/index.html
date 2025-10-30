@@ -29,7 +29,7 @@
                 body: JSON.stringify({ message })
             });
             const data = await response.json();
-            chatBox.innerHTML += `<div class='bot-msg'>Bot: ${data.reply}</div>`;
+            chatBox.innerHTML += `<div class='bot-msg'>Bot: ${data.answer}</div>`;
             chatBox.scrollTop = chatBox.scrollHeight;
         }
     </script>
