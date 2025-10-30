@@ -1,38 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>GKS Chatbot</title>
-    <link rel="stylesheet" href="/static/style.css">
+  <meta charset="UTF-8">
+  <title>🎓 GKS Chatbot</title>
+  <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-    <div class="chat-container">
-        <h2>🎓 GKS Chatbot</h2>
-        <div id="chat-box"></div>
-        <input type="text" id="user-input" placeholder="Type your question..." />
-        <button onclick="sendMessage()">Send</button>
+  <div class="chat-container">
+    <div class="chat-header">
+      <span class="emoji">🎓🤖💬</span>
+      <h2>GKS Chatbot Assistant</h2>
+      <span class="emoji">🌏✨</span>
     </div>
 
-    <script>
-        async function sendMessage() {
-            const input = document.getElementById("user-input");
-            const message = input.value.trim();
-            if (!message) return;
+    <div id="chat-box">
+      <div class="bot-msg">
+        <div class="emoji">🤖</div>
+        <div class="bot-bubble">
+          Hello there! 👋<br>
+          I’m your friendly GKS chatbot 🤓💡<br>
+          Ask me about ✈️ Study Plan, 🧾 LOR, 🏫 University track, or 💼 documents.
+        </div>
+      </div>
+    </div>
 
-            const chatBox = document.getElementById("chat-box");
-            chatBox.innerHTML += `<div class='user-msg'>You: ${message}</div>`;
-            input.value = "";
+    <div class="input-area">
+      <input type="text" id="user-input" placeholder="Type your question... 🧠💭">
+      <button onclick="sendMessage()">Send 🚀</button>
+    </div>
+  </div>
 
-            const response = await fetch("/ask", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ message })
-            });
-            const data = await response.json();
-            chatBox.innerHTML += `<div class='bot-msg'>Bot: ${data.answer}</div>`;
-            chatBox.scrollTop = chatBox.scrollHeight;
-        }
-    </script>
+  <script>
+    async function sendMessage() {
+      const input = document.getElementById("user-input");
+      const message = input.value.trim();
+      if (!message) return;
+
+      const chatBox = document.getElementById("chat-box");
+      chatBox.innerHTML += `
+        <div class='user-msg'>
+          <div class='user-bubble'>${message} 😎💬</div>
+          <div class='emoji'>👤</div>
+        </div>
+      `;
+      input.value = "";
+      chatBox.scrollTop = chatBox.scrollHeight;
+
+      // Typing animation
+      const typing = document.createElement("div");
+      typing.className = "bot-msg typing";
+      typing.innerHTML = `
+        <div class='emoji'>🤖</div>
+        <div class='bot-bubble typing-text'>Bot is thinking 🤔💭...</div>
+      `;
+      chatBox.appendChild(typing);
+      chatBox.scrollTop = chatBox.scrollHeight;
+
+      try {
+        const response = await fetch("/ask", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ question: message })
+        });
+        const data = await response.json();
+
+        // Remove typing
+        typing.remove();
+
+        // Bot reply
+        chatBox.innerHTML += `
+          <div class='bot-msg'>
+            <div class='emoji'>🤖💬</div>
+            <div class='bot-bubble'>${data.answer} ✨📘</div>
+          </div>
+        `;
+        chatBox.scrollTop = chatBox.scrollHeight;
+      } catch (err) {
+        typing.remove();
+        chatBox.innerHTML += `
+          <div class='bot-msg'>
+            <div class='emoji'>⚠️</div>
+            <div class='bot-bubble'>Oops! 😢 I couldn’t connect. Try again later 🌐</div>
+          </div>
+        `;
+      }
+    }
+
+    document.getElementById("user-input").addEventListener("keypress", function(e) {
+      if (e.key === "Enter") sendMessage();
+    });
+  </script>
 </body>
 </html>
 
