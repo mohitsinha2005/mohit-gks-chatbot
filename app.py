@@ -24,52 +24,52 @@ def ask():
             "He has a strong academic record and an interest in applied AI research."
         ),
 
-        "personal statement": (
+        "personal statement" or "PEASONAL STATEMENT"or"Pearsonal statement": (
             "🧠 From an early age, Mohit has been fascinated by how technology can solve global problems. "
             "His motivation for studying in Korea comes from the country’s innovation-driven environment "
             "and focus on practical engineering education. He hopes to build bridges between Korean and Indian tech ecosystems."
         ),
 
-        "study plan": (
+        "study plan"or"Study plan"or"STUDY PLAN": (
             "📘 Mohit’s study plan includes mastering Python, machine learning, and data analysis in the first year, "
             "then specializing in AI-based research and real-world projects during his later years at KOREATECH."
         ),
 
-        "future plan": (
+        "future plan"or"FUTURE PLAN"or"Future plan": (
             "🚀 After graduation, Mohit hopes to contribute to Korea’s AI and technology ecosystem, "
             "working on sustainable innovation projects and fostering collaboration between Korean and Indian researchers."
         ),
 
-        "certification": (
+        "certification"or"CERTIFICATION"or"Certification": (
             "📜 He has completed multiple online programs including AI & Tableau from IIT Roorkee, "
             "Business Analytics from Coursera, and Web Design training from IIT Madras."
         ),
 
-        "achievements": (
+        "achievements"or"ACHIEVEMENTS"or"Achivements": (
             "🏅 Mohit has received top ranks in science olympiads and innovation contests, "
             "reflecting his dedication to both academics and creative problem-solving."
         ),
 
-        "language plan": (
+        "language plan"or"LANGUAGE PLAN"or"Language plan": (
             "🗣️ Mohit plans to study Hangul before arriving in Korea and aims to achieve TOPIK Level 3 within his first year."
         ),
 
-        "lor": (
+        "lor"or"LOR"or"Lor": (
             "📝 Mohit’s Letter of Recommendation highlights his leadership, discipline, and teamwork — "
             "qualities that make him an ideal candidate for international study."
         ),
 
-        "contact": (
+        "contact"or"CONTACT"or"Contact": (
             "📩 For official or academic inquiries, please reach out through the project portfolio or the chatbot contact form. "
             "This version does not share personal details publicly for safety reasons."
         ),
 
-        "age": "🧾 Mohit is currently 17 years old."
+        "age"or"AGE"or"Age": "🧾 Mohit is currently 17 years old."
     }
 
     reply = (
         "🤖 I’m Mohit’s AI Assistant! You can ask about his Study Plan, Education, Certifications, "
-        "Achievements, or Future Goals related to the GKS Scholarship."
+        "Achievements, or Future Goals,related to the GKS Scholarship."
     )
 
     for key in responses:
@@ -82,6 +82,7 @@ def ask():
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
+
 
 
 
