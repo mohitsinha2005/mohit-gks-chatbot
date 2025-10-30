@@ -64,7 +64,7 @@ def ask():
             "This version does not share personal details publicly for safety reasons.PEASE CONTACT THIS EMAIL-SINHAMOHIT9870@GMAIL.COM"
         ),
 
-        "age"or"AGE"or"Age": "🧾 Mohit is currently 17 years old."
+        "age"or"AGE"or"Age": "🧾 Mohit is currently 18 years old. date of birth (11-07-2007)"
     }
 
     reply = (
@@ -82,6 +82,7 @@ def ask():
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
+
 
 
 
