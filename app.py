@@ -61,7 +61,7 @@ def ask():
 
         "contact"or"CONTACT"or"Contact": (
             "📩 For official or academic inquiries, please reach out through the project portfolio or the chatbot contact form. "
-            "This version does not share personal details publicly for safety reasons."
+            "This version does not share personal details publicly for safety reasons.PEASE CONTACT THIS EMAIL-SINHAMOHIT9870@GMAIL.COM"
         ),
 
         "age"or"AGE"or"Age": "🧾 Mohit is currently 17 years old."
@@ -69,7 +69,7 @@ def ask():
 
     reply = (
         "🤖 I’m Mohit’s AI Assistant! You can ask about his Study Plan, Education, Certifications, "
-        "Achievements, or Future Goals,related to the GKS Scholarship."
+        "Achievements, or age,contact,Future Goals,related to the GKS Scholarship."
     )
 
     for key in responses:
@@ -82,6 +82,7 @@ def ask():
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
+
 
 
 
