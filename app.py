@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, jsonify
+import random
 
 app = Flask(__name__)
 
@@ -8,80 +9,89 @@ def home():
 
 @app.route("/ask", methods=["POST"])
 def ask():
-    user_input = request.json["question"].lower()
+    user_input = request.json["question"].lower().strip()
 
-    responses = {
-        "who is mohit": (
-            "👋 Mohit Sinha is a student from India and the creator of this GKS Chatbot project. "
-            "He developed it as part of his application for the Global Korea Scholarship (University Track). "
-            "He aims to pursue a degree in Computer Science and Artificial Intelligence at KOREATECH, "
-            "focusing on AI innovation and international collaboration. 🌏"
-        ),
+    # --- 💬 Intelligent keyword-based chatbot ---
+    if "who" in user_input and "mohit" in user_input:
+        reply = (
+            "👋 Mohit Sinha is a tech enthusiast and the creator of this GKS Chatbot project. "
+            "He is passionate about Artificial Intelligence, Data Science, and innovation in education. "
+            "He built this chatbot as part of his Global Korea Scholarship (GKS) University Track portfolio. 🌍"
+        )
 
-        "education": (
-            "🎓 Mohit is currently studying Bachelor of Computer Applications at MMDU University "
-            "and pursuing the BS in Data Science Foundation Program from IIT Madras. "
-            "He has a strong academic record and an interest in applied AI research."
-        ),
+    elif "education" in user_input or "study" in user_input:
+        reply = (
+            "🎓 Mohit is pursuing a Bachelor of Computer Applications (BCA) at MMDU University "
+            "and also enrolled in the BS in Data Science Foundation Program at IIT Madras. "
+            "He is focused on AI, machine learning, and data analytics research."
+        )
 
-        "personal statement" or "PEASONAL STATEMENT"or"Pearsonal statement": (
-            "🧠 From an early age, Mohit has been fascinated by how technology can solve global problems. "
-            "His motivation for studying in Korea comes from the country’s innovation-driven environment "
-            "and focus on practical engineering education. He hopes to build bridges between Korean and Indian tech ecosystems."
-        ),
+    elif "goal" in user_input or "future" in user_input or "dream" in user_input:
+        reply = (
+            "🚀 Mohit’s goal is to study Artificial Intelligence in South Korea through the GKS program "
+            "and contribute to sustainable global technology collaboration between India and Korea."
+        )
 
-        "study plan"or"Study plan"or"STUDY PLAN": (
-            "📘 Mohit’s study plan includes mastering Python, machine learning, and data analysis in the first year, "
-            "then specializing in AI-based research and real-world projects during his later years at KOREATECH."
-        ),
+    elif "project" in user_input or "chatbot" in user_input:
+        reply = (
+            "🤖 This chatbot was developed by Mohit as part of his GKS application portfolio. "
+            "It demonstrates his skills in Python (Flask), Web Development, and AI integration. "
+            "It allows anyone to learn about his background and motivations interactively."
+        )
 
-        "future plan"or"FUTURE PLAN"or"Future plan": (
-            "🚀 After graduation, Mohit hopes to contribute to Korea’s AI and technology ecosystem, "
-            "working on sustainable innovation projects and fostering collaboration between Korean and Indian researchers."
-        ),
+    elif "gks" in user_input or "scholarship" in user_input:
+        reply = (
+            "🎓 The Global Korea Scholarship (GKS) is a prestigious, fully-funded program offered by the Korean government. "
+            "It supports talented international students for undergraduate and graduate studies in Korea, "
+            "covering tuition, airfare, stipend, and health insurance."
+        )
 
-        "certification"or"CERTIFICATION"or"Certification": (
-            "📜 He has completed multiple online programs including AI & Tableau from IIT Roorkee, "
-            "Business Analytics from Coursera, and Web Design training from IIT Madras."
-        ),
+    elif "achieve" in user_input or "certificate" in user_input or "award" in user_input:
+        reply = (
+            "🏅 Mohit has completed certifications in AI & Tableau (IIT Roorkee), "
+            "Business Analytics (Coursera), and Web Design (IIT Madras). "
+            "He has also achieved top ranks in science innovation contests and academic projects."
+        )
 
-        "achievements"or"ACHIEVEMENTS"or"Achivements": (
-            "🏅 Mohit has received top ranks in science olympiads and innovation contests, "
-            "reflecting his dedication to both academics and creative problem-solving."
-        ),
+    elif "language" in user_input or "korean" in user_input:
+        reply = (
+            "🗣️ Mohit plans to study the Korean language (Hangul) before arriving in Korea, "
+            "and aims to achieve TOPIK Level 3 within his first year of study."
+        )
 
-        "language plan"or"LANGUAGE PLAN"or"Language plan": (
-            "🗣️ Mohit plans to study Hangul before arriving in Korea and aims to achieve TOPIK Level 3 within his first year."
-        ),
+    elif "motivation" in user_input or "why" in user_input:
+        reply = (
+            "💡 Mohit’s motivation for applying to GKS stems from Korea’s strong focus on innovation, "
+            "engineering excellence, and cultural diversity. "
+            "He believes that studying in Korea will help him bridge global AI innovation with real-world impact."
+        )
 
-        "lor"or"LOR"or"Lor": (
-            "📝 Mohit’s Letter of Recommendation highlights his leadership, discipline, and teamwork — "
-            "qualities that make him an ideal candidate for international study."
-        ),
+    elif "contact" in user_input or "email" in user_input:
+        reply = (
+            "📩 You can reach Mohit directly at **sinhamohit9870@gmail.com** "
+            "for academic or professional inquiries related to this project or scholarship."
+        )
 
-        "contact"or"CONTACT"or"Contact": (
-            "📩 For official or academic inquiries, please reach out through the project portfolio or the chatbot contact form. "
-            "This version does not share personal details publicly for safety reasons.PEASE CONTACT THIS EMAIL-SINHAMOHIT9870@GMAIL.COM"
-        ),
+    elif "thanks" in user_input or "thank" in user_input:
+        reply = "😊 You're very welcome! I’m glad I could assist you."
 
-        "age"or"AGE"or"Age": "🧾 Mohit is currently 18 years old. date of birth (11-07-2007)"
-    }
-
-    reply = (
-        "🤖 I’m Mohit’s AI Assistant! You can ask about his Study Plan, Education, Certifications, "
-        "Achievements, or age,contact,Future Goals,related to the GKS Scholarship."
-    )
-
-    for key in responses:
-        if key in user_input:
-            reply = responses[key]
-            break
+    else:
+        # 💬 Intelligent fallback responses (for unknown or general queries)
+        intelligent_replies = [
+            "🤖 That’s an interesting question! Mohit’s focus is mainly on AI, Data Science, and educational innovation.",
+            "💬 Mohit loves exploring technology and cross-cultural learning. You can ask me about his Study Plan or Future Goals!",
+            "✨ I’m not sure about that, but Mohit’s research interests include Machine Learning, Web AI, and global collaboration.",
+            "🧠 Mohit continues updating this chatbot — your question might be added in the next version!",
+            "📘 You can learn more about Mohit’s education, goals, or achievements — just ask me!"
+        ]
+        reply = random.choice(intelligent_replies)
 
     return jsonify({"answer": reply})
 
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
+
 
 
 
