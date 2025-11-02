@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, jsonify
 import random
+import re
 
 app = Flask(__name__)
 
@@ -9,80 +10,90 @@ def home():
 
 @app.route("/ask", methods=["POST"])
 def ask():
-    user_input = request.json["question"].lower().strip()
+    user_input = request.json.get("question", "").strip().lower()
+
+    # Clean and normalize input (remove punctuation)
+    user_input = re.sub(r'[^\w\s]', '', user_input)
 
     # --- 💬 Intelligent keyword-based chatbot ---
-    if "who"or"WHO" in user_input and "mohit" in user_input:
+    if "who" in user_input and "mohit" in user_input:
         reply = (
             "👋 Mohit Sinha is a tech enthusiast and the creator of this GKS Chatbot project. "
             "He is passionate about Artificial Intelligence, Data Science, and innovation in education. "
-            "He built this chatbot as part of his Global Korea Scholarship (GKS) University Track portfolio. 🌍"
+            "He developed this chatbot as part of his Global Korea Scholarship (University Track) portfolio. 🌍"
         )
 
-    elif "education"or "EDUCATION" in user_input or "study" in user_input:
+    elif "education" in user_input or "study" in user_input or "academic" in user_input:
         reply = (
-            "🎓 Mohit is pursuing a Bachelor of Computer Applications (BCA) at MMDU University "
-            "and also enrolled in the BS in Data Science Foundation Program at IIT Madras. "
-            "He is focused on AI, machine learning, and data analytics research."
+            "🎓 Mohit is pursuing a Bachelor of Computer Applications (BCA) at MMDU University, "
+            "and is also enrolled in the BS in Data Science Foundation Program at IIT Madras. "
+            "His interests include machine learning, programming, and applied AI research."
         )
 
-    elif "goal"or "GOAL"in user_input or "future" in user_input or "dream" in user_input:
+    elif "goal" in user_input or "future" in user_input or "dream" in user_input:
         reply = (
-            "🚀 Mohit’s goal is to study Artificial Intelligence in South Korea through the GKS program "
-            "and contribute to sustainable global technology collaboration between India and Korea."
+            "🚀 Mohit’s long-term goal is to become a global AI researcher and innovator. "
+            "He aims to study in Korea through the GKS program and contribute to AI-driven solutions "
+            "that strengthen collaboration between India and Korea."
         )
 
-    elif "project"or"PROJECT" in user_input or "chatbot" in user_input:
+    elif "project" in user_input or "chatbot" in user_input:
         reply = (
-            "🤖 This chatbot was developed by Mohit as part of his GKS application portfolio. "
-            "It demonstrates his skills in Python (Flask), Web Development, and AI integration. "
-            "It allows anyone to learn about his background and motivations interactively."
+            "🤖 This chatbot is part of Mohit’s GKS portfolio. It demonstrates his ability to combine AI concepts "
+            "with real-world applications using Python (Flask) and web development. "
+            "It allows users to learn about his profile interactively and intelligently."
         )
 
-    elif "gks"or"GKS" in user_input or "scholarship" in user_input:
+    elif "gks" in user_input or "scholarship" in user_input or "korea" in user_input:
         reply = (
-            "🎓 The Global Korea Scholarship (GKS) is a prestigious, fully-funded program offered by the Korean government. "
-            "It supports talented international students for undergraduate and graduate studies in Korea, "
-            "covering tuition, airfare, stipend, and health insurance."
+            "🎓 The Global Korea Scholarship (GKS) is a fully-funded Korean government program "
+            "that offers international students a chance to study in Korea. It covers tuition, airfare, stipend, "
+            "and health insurance while promoting global academic exchange and friendship."
         )
 
-    elif "achieve"or"ACHIEVE" in user_input or "certificate" in user_input or "award" in user_input:
+    elif "achievement" in user_input or "certificate" in user_input or "award" in user_input:
         reply = (
             "🏅 Mohit has completed certifications in AI & Tableau (IIT Roorkee), "
             "Business Analytics (Coursera), and Web Design (IIT Madras). "
-            "He has also achieved top ranks in science innovation contests and academic projects."
+            "He has also achieved top ranks in innovation and science contests."
         )
 
-    elif "language"or"LANGUAGE" in user_input or "korean" in user_input:
+    elif "language" in user_input or "korean" in user_input or "hangul" in user_input:
         reply = (
-            "🗣️ Mohit plans to study the Korean language (Hangul) before arriving in Korea, "
-            "and aims to achieve TOPIK Level 3 within his first year of study."
+            "🗣️ Mohit is learning the Korean language (Hangul) and aims to achieve TOPIK Level 3 "
+            "within his first year of study in Korea."
         )
 
-    elif "motivation"or"MOTIVATION" in user_input or "why" in user_input:
+    elif "motivation" in user_input or "why" in user_input:
         reply = (
-            "💡 Mohit’s motivation for applying to GKS stems from Korea’s strong focus on innovation, "
-            "engineering excellence, and cultural diversity. "
-            "He believes that studying in Korea will help him bridge global AI innovation with real-world impact."
+            "💡 Mohit’s motivation for applying to GKS is inspired by Korea’s advanced technology environment "
+            "and strong innovation culture. He believes studying there will help him merge AI, creativity, "
+            "and global collaboration for real-world impact."
         )
 
-    elif "contact"or"CONTACT" in user_input or "email" in user_input:
+    elif "contact" in user_input or "email" in user_input or "reach" in user_input:
         reply = (
-            "📩 You can reach Mohit directly at **sinhamohit9870@gmail.com** "
-            "for academic or professional inquiries related to this project or scholarship."
+            "📩 You can contact Mohit for academic or professional inquiries via email: "
+            "**sinhamohit9870@gmail.com**"
         )
 
-    elif "thanks" in user_input or "thank" in user_input:
-        reply = "😊 You're very welcome! I’m glad I could assist you."
+    elif "age" in user_input or "birth" in user_input or "dob" in user_input:
+        reply = (
+            "🧾 Mohit is 18 years old, born on **11 July 2007**. "
+            "He represents the next generation of young innovators in AI and technology."
+        )
+
+    elif "thanks" in user_input or "thank" in user_input or "appreciate" in user_input:
+        reply = "😊 You’re most welcome! I’m glad I could assist you."
 
     else:
-        # 💬 Intelligent fallback responses (for unknown or general queries)
+        # 💬 Intelligent fallback answers (for general or unknown questions)
         intelligent_replies = [
-            "🤖 That’s an interesting question! Mohit’s focus is mainly on AI, Data Science, and educational innovation.please use small lettter alphbat ",
-            "💬 Mohit loves exploring technology and cross-cultural learning. You can ask me about his Study Plan or Future Goals!,please use small lettter alphbat",
-            "✨ I’m not sure about that, but Mohit’s research interests include Machine Learning, Web AI, and global collaboration.",
-            "🧠 Mohit continues updating this chatbot — your question might be added in the next version!",
-            "📘 You can learn more about Mohit’s education, goals, or achievements — just ask me!"
+            "🤖 That’s an interesting question! Mohit’s work mainly focuses on AI, Data Science, and innovation 🌍.",
+            "💬 Mohit enjoys exploring technology and education. You can ask about his Education, Study Plan, or Achievements!",
+            "✨ I’m not sure about that yet, but Mohit’s interests include Machine Learning, Web AI, and cross-cultural learning.",
+            "🧠 Mohit continues improving this chatbot — your question might appear in the next version update!",
+            "📘 Ask about Mohit’s Education, Projects, or GKS Journey to learn more about him!"
         ]
         reply = random.choice(intelligent_replies)
 
